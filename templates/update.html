@@ -1,52 +1,47 @@
-{% extends 'base.html' %}
-{% block title %}Home{% endblock title %}
-{% block body %}
-        
-    <!-- form -->
-    <div class="container">
-        <h4>Update Todo</h4>
-      <form action="/update/{{todo.sno}}" method="POST">
+{% extends 'base.html' %} {% block title %}Home{% endblock title %} {% block
+body %}
 
-        <div class="mb-3">
-          <label for="exampleInputEmail1" class="form-label">todo title</label>
-          <input
-            value="{{todo.title}}"
-            type="text"
-            class="form-control"
-            id="title"
-            name="title"
-            aria-describedby="emailHelp"
-          />
-        </div>
+<div class="container mx-auto max-w-4xl p-6">
 
-        <div class="mb-3">
-          <label for="exampleInputPassword1" class="form-label">todo desc</label>
-          <input 
-          value="{{todo.desc}}" 
-          type="text" 
-          class="form-control" 
-          id="desc" 
-          name="desc" />
-        </div>
+  <h2 class="text-2xl font-bold text-gray-800 text-center mb-6">Update Todo</h2>
 
-        <button type="submit" class="btn btn-primary">Update</button>
-      </form>
-    </div>
+  <!--  update form -->
+  <div class="bg-white shadow-lg rounded-xl p-6 border border-gray-200">
+    <form action="/update/{{todo.sno}}" method="POST">
+      <div class="mb-4">
+        <label for="title" class="block text-gray-700 font-bold"
+          >Todo Title</label
+        >
+        <input
+          value="{{todo.title}}"
+          type="text"
+          id="title"
+          name="title"
+          class="w-full px-4 py-2 border rounded-lg focus:ring-1 focus:ring-black focus:outline-none bg-gray-50"
+        />
+      </div>
 
+      <div class="mb-4">
+        <label for="desc" class="block text-gray-700 font-bold"
+          >Todo Description</label
+        >
+        <input
+          value="{{todo.desc}}"
+          type="text"
+          id="desc"
+          name="desc"
+          class="w-full px-4 py-2 border rounded-lg focus:ring-1 focus:ring-black focus:outline-none bg-gray-50"
+        />
+      </div>
 
+      <button
+        type="submit"
+        class="w-full text-white py-2 px-4 rounded-md shadow-md bg-gradient-to-r from-teal-600 to-green-700 hover:bg-[rgb(90,135,125)] transition duration-300 ease-in-out"
+      >
+        Update
+      </button>
+    </form>
+  </div>
+</div>
 
-    <!-- Option 1: Bootstrap Bundle with Popper -->
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-      crossorigin="anonymous"
-    ></script>
-
-    <!-- Option 2: Separate Popper and Bootstrap JS -->
-    <!--
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
-    -->
-   
 {% endblock body %}
-    

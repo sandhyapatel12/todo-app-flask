@@ -1,94 +1,74 @@
-{% extends 'base.html' %}
-{% block title %}Home{% endblock title %}
+{% extends 'base.html' %} 
+{% block title %}Home{% endblock title %} 
 {% block body %}
+<div class="container mx-auto max-w-5xl p-6">
+
+  <!-- Header -->
+  <h2 class="text-2xl font-bold text-gray-800 text-center mb-6">
+    Manage Your Todos
+  </h2>
+
+  <!-- Flash Message Display -->
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      <div id="flash-message" class="fixed top-1 left-1/2 transform -translate-x-1/2 z-50">
+        {% for category, message in messages %}
+          <div class="bg-black text-white py-3 px-5 rounded-lg shadow-lg mb-2">
+            {{ message }}
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  {% endwith %}
+
+  <!-- Form for adding todos -->
+  <div class="bg-white shadow-lg rounded-xl p-6 border border-gray-200">
+    <form action="/" method="POST">
+      <div class="mb-4">
+        <label for="title" class="block text-gray-700 font-bold mb-1"
+          >Todo Title</label
+        >
+        <input
+        required
+          type="text"
+          id="title"
+          name="title"
+          placeholder="Enter title"
+          class="w-full px-4 py-2 border rounded-lg focus:ring-1 focus:ring-black focus:outline-none bg-gray-50"
+        />
+      </div>
+      <div class="mb-4">
+        <label for="desc" class="block text-gray-700 font-bold mb-1"
+          >Todo Description</label
+        >
+        <textarea
+        required
+          id="desc"
+          name="desc"
+          placeholder="Enter description"
+          class="w-full px-4 py-2 border rounded-lg focus:ring-1 focus:ring-black focus:outline-none bg-gray-50"
+        ></textarea>
+      </div>
+      <button
+        type="submit"
+        class="w-full text-white py-2 rounded-lg font-medium text-lg shadow-md hover:shadow-lg bg-gradient-to-r from-teal-600 to-green-700 "
         
-    <!-- form for add todos -->
-    
-    <div class="container">
-      <h4 class="">Add Todo</h4>
-      <form action="/" method="POST">
-        <div class="mb-3">
-          <label for="exampleInputEmail1" class="form-label">todo title</label>
-          <input
-            type="text"
-            class="form-control"
-            id="title"
-            name="title"
-            aria-describedby="emailHelp"
-          />
-        </div>
-        <div class="mb-3">
-          <label for="exampleInputPassword1" class="form-label"
-            >todo desc</label
-          >
-          <input type="text" class="form-control" id="desc" name="desc" />
-        </div>
+      >
+        Add Todo
+      </button>
+    </form>
+  </div>
 
-        <button type="submit" class="btn btn-primary">Submit</button>
-      </form>
-    </div>
+  
 
-    <!-- table  for display todo -->
-    <div class="container">
-
-      <!-- if no records found then display following container -->
-      {% if allTodo|length == 0 %}   
-
-        <div class="alert alert-dark my-3" role="alert">
-          no records found. please add your first todo.
-        </div>
-
-      {% else %}
-      <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">SNo</th>
-            <th scope="col">Title</th>
-            <th scope="col">Desc</th>
-            <th scope="col">Date</th>
-            <th scope="col">Actions</th>
-          </tr>
-        </thead>
-
-        <tbody>
-
-          <!-- this is jinja2 for loop --> 
-          <!-- todo → Represents a single item from the allTodo list in each iteration. -->
-
-          {% for todo in allTodo %}
-          <tr>
-            <th scope="row">{{loop.index}}</th>
-            <td>{{todo.title}}</td>
-            <td>{{todo.desc}}</td>
-            <td>{{todo.date_created}}</td>
-            <td>
-              <a
-                href="/update/{{todo.sno}}"
-                type="button"
-                class="btn btn-outline-success mx-1 btn-sm"
-                >Update</a
-              >
-              <a
-                href="/delete/{{todo.sno}}"
-                type="button"
-                class="btn btn-outline-danger mx-1 btn-sm"
-                >Delete</a
-              >
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      {% endfor %} {% endif %}
-    </div>
-
-    <!-- Bootstrap Bundle with Popper -->
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-      crossorigin="anonymous"
-    ></script>
-
-
-   
+</div>
+<!-- Auto-hide Flash Message -->
+<script>
+  setTimeout(() => {
+    let flashMessage = document.getElementById("flash-message");
+    if (flashMessage) {
+      flashMessage.style.display = "none";
+    }
+  }, 3000);
+</script>
 {% endblock body %}
-    

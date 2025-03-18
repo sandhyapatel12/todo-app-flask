@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-gradient-to-r from-teal-600 to-green-700 flex items-center justify-center min-h-screen relative">
+   
+    
+    <!-- Flash Message Display -->
+    {% with messages = get_flashed_messages(with_categories=true) %} 
+    {% if messages %}
+    <div id="flash-message" class="fixed top-4 left-1/2 transform -translate-x-1/2 z-50">
+      {% for category, message in messages %}
+      <div
+      class="mb-4 p-4 text-sm font-bold text-white rounded-xl {{ 'bg-red-700' if category == 'warning' else 'bg-green-600' }}"
+    >
+      {{ message }}
+    </div>
+      {% endfor %}
+    </div>
+    {% endif %} 
+    {% endwith %}
+    
+    <div class="bg-white p-8 rounded-lg shadow-md w-96 relative z-10 backdrop-blur-lg bg-opacity-80">
+     
+      <h2 class="text-2xl font-bold text-center text-gray-700 mb-6">Login</h2>
+
+      <form action="{{ url_for('login') }}" method="POST" class="space-y-4">
+        <div>
+          <label for="username" class="block text-sm font-medium text-gray-600 outline-none">Username</label>
+          <input type="text" id="username" name="username" required class="mt-1 p-2 w-full  rounded outline-none " />
+        </div>
+
+        <div>
+          <label for="password" class="block text-sm font-medium text-gray-600 outline-none">Password</label>
+          <input type="password" id="password" name="password" required class="mt-1 p-2 w-full border rounded outline-none" />
+        </div>
+
+        <button 
+        type="submit" 
+        class="w-full bg-gradient-to-r from-teal-600 to-green-700 hover:font-bold hover:text:lg text-white p-2 rounded-lg transition duration-300 shadow-md">
+        Login
+        </button>
+
+      </form>
+
+      <p class="text-sm font-bold text-gray-600 mt-4 text-center">
+        Don't have an account? <a href="{{ url_for('register') }}" class="text-green-600 hover:underline">Register</a>
+      </p>
+    </div>
+  </body>
+
+  <!-- Auto-hide Flash Message -->
+  <script>
+    setTimeout(() => {
+      let flashMessage = document.getElementById("flash-message");
+      if (flashMessage) {
+        flashMessage.style.display = "none";
+      }
+    }, 3000);
+  </script>
+</html>

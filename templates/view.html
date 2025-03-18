@@ -1,0 +1,61 @@
+{% extends 'base.html' %} 
+{% block title %}Home{% endblock title %} 
+{% block body %}
+
+<div class="mt-8 max-w-5xl mx-auto px-4  ">
+
+  <!-- Display Header -->
+  <h2 class="text-2xl font-bold text-green-600 text-center mb-6 sticky top-0 z-10">Your Todos</h2>
+
+  <!-- No Todos Message -->
+  {% if allTodo|length == 0 %}
+  <div class="text-center bg-gray-800 text-white py-6 px-4 rounded-lg shadow-md">
+    <p class="text-lg">No records found. Add your first todo!</p>
+  </div>
+  {% else %}
+
+  <!-- Todo List Container -->
+  <div class="space-y-6 px-3 h-[calc(100vh-180px)] overflow-y-scroll no-scrollbar">
+    {% for todo in allTodo %}
+    <div class="relative bg-gray-800 text-white p-6 rounded-lg shadow-md border border-gray-700 flex justify-between">
+
+      <!-- Floating S.No. -->
+      <div class="absolute -left-3 top-1/2 transform -translate-y-1/2 bg-gradient-to-r from-teal-600 to-green-700 text-white text-sm ring-2 ring-gray-100 font-bold h-8 w-8  flex items-center justify-center  rounded-full shadow-lg">
+        {{ loop.index }}
+      </div>
+
+      <div class="pl-6">
+        <h3 class="text-lg font-semibold">{{ todo.title }}</h3>
+        <p class="text-gray-300">{{ todo.desc }}</p>
+        <p class="text-sm text-gray-400 mt-2">
+          Created: {{ todo.date_created.strftime('%d, %B %Y') }}
+        </p>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="mt-4 flex space-x-2">
+        <!-- Update Button -->
+        <a
+          href="/update/{{ todo.sno }}"
+          class="p-2  h-fit text-green-400 bg-gray-700 rounded-lg shadow hover:bg-green-500 hover:text-white transition"
+        >
+          <i class="fas fa-pen text-lg"></i>
+        </a>
+
+        <!-- Delete Button -->
+        <a
+          href="/delete/{{ todo.sno }}"
+          class="p-2 h-fit text-red-400 bg-gray-700 rounded-lg shadow hover:bg-red-500 hover:text-white transition"
+        >
+          <i class="fas fa-trash-alt text-lg"></i>
+        </a>
+      </div>
+
+    </div>
+    {% endfor %}
+  </div>
+
+  {% endif %}
+</div>
+
+{% endblock body %}
