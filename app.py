@@ -198,8 +198,14 @@ def delete(sno):
 if __name__ == "__main__":
     with app.app_context():  # Ensure Flask is in the application context
         db.create_all()  # Create database tables
-        # exit()
         print("Database created successfully!")  # Confirmation message
 
+    # use locally
     # Starts the development server, and 'debug=True' allows automatic reloading on changes.when we delopy our app then we set debug=False  so that it will not show error on browser to user
-    app.run(debug=True)  
+    # app.run(debug=True)  
+    
+    #----------------------
+    
+    # use in production
+    if os.environ.get("FLASK_ENV") == "development":
+        app.run(debug=True)
